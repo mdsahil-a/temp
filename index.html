@@ -104,7 +104,7 @@ button.addEventListener('click',async()=>
 
     const input=document.querySelector("#input").value;
   
-  let url=`http://api.weatherapi.com/v1/current.json?key=30e4266b782341659b685348251805&q=${input}&aqi=no`;
+  let url=`https://api.weatherapi.com/v1/current.json?key=30e4266b782341659b685348251805&q=${input}&aqi=no`;
 
    const response=await fetch(url);
    const data=await response.json();
