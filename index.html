@@ -1,12 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    *{
+  margin:0;
+  padding:0;
+}
+body{
+  background-color:whitesmoke;
+}
+#input{
+  background-color:lightblue;
+  color:grey;
+  width:100%;
+  height:4rem;
+  border:1px solid white;
+  border-radius:5px;
+  outline:none;
+  box-shadow: 0 0 15px rgba(25, 255, 255, 1.8);
+  
+}
+input::placeholder{
+  position: absolute;
+  left:5%;
+  font-size:15px;
+}
+.weatherData{
+ position: absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:20rem;
+  height:20rem;
+  /*border:1px solid black;*/
+  border-radius:10px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  background-color:skyblue;
+  padding:20px;
+}
+#name{
+  
+  font-size: 40px;
+  font-family:fantasy;
+  font-weight:bold;
+}
+button{
+  position:absolute;
+  width:70px;
+  height:30px;
+  background-color:creamywhite;
+  left:50%;
+  transform:translateX(-50%);
+  margin-top:50px;
+  
+  
+}
+.data{
+  color:black;
+    font-family: "Arial", "Helvetica", sans-serif;
+    font-size:20px;
+  
+}
+
+
+
+  </style>
 </head>
+
 <body>
-    <h1>Hello this is website 1 </h1>
+  <input type="text" id="input" placeholder="Enter the place name">
+  <br>
+  <button>Search</button>
+  <div class="weatherData">
     
+  
+ <p id="name" >Place</p>
+  <p id="temp" class="data">Temperature:</p>
+  <p id="humidity" class="data">Humidity:</p>
+  <p id="wind" class="data">Wind:</p>
+  </div>
 </body>
+<script>
+  const place=document.querySelector("#name");
+  const temp=document.querySelector("#temp");
+  const humidity=document.querySelector("#humidity");
+  const wind=document.querySelector("#wind");
+  const button=document.querySelector("button");
+
+
+let locationName="Mumbai";
+let country;
+button.addEventListener('click',async()=>
+{
+
+    const input=document.querySelector("#input").value;
+  
+  let url=`http://api.weatherapi.com/v1/current.json?key=30e4266b782341659b685348251805&q=${input}&aqi=no`;
+
+   const response=await fetch(url);
+   const data=await response.json();
+  console.log(data.location);
+  place.textContent=`${data.location.name}, ${data.location.country}`;
+   console.log(data);
+   temp.textContent=`Temprature:${data.current.temp_c}°C`;
+   wind.textContent=`Wind:${data.current.wind_mph}mph ${data.current.wind_dir}`;
+   humidity.textContent=`Humidity:${data.current.humidity}`;
+})
+
+
+</script>
+
 </html>
